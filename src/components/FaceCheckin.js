@@ -43,7 +43,9 @@ const FaceCheckin = () => {
   };
 
   const loadLabeledFaces = async () => {
-    const res = await axios.get("http://localhost:5000/api/face/labels");
+    const res = await axios.get(
+      "https://finlyapi-production.up.railway.app/api/face/labels"
+    );
     const data = res.data;
 
     const descriptors = await Promise.all(
@@ -51,7 +53,7 @@ const FaceCheckin = () => {
         if (!emp.avatar) return null;
         try {
           const img = await faceapi.fetchImage(
-            `http://localhost:5000${emp.avatar}`
+            `https://finlyapi-production.up.railway.app${emp.avatar}`
           );
           const detection = await faceapi
             .detectSingleFace(img)
@@ -99,7 +101,7 @@ const FaceCheckin = () => {
         try {
           // Gửi check-in
           const res = await axios.post(
-            "http://localhost:5000/api/face/attendance",
+            "https://finlyapi-production.up.railway.app/api/face/attendance",
             formData
           );
           const status = res.data.status;
@@ -116,7 +118,7 @@ const FaceCheckin = () => {
 
             try {
               const outRes = await axios.post(
-                "http://localhost:5000/api/face/checkout",
+                "https://finlyapi-production.up.railway.app/api/face/checkout",
                 checkoutForm
               );
               if (outRes.data.status === "checked-out") {

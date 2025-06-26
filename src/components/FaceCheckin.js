@@ -102,7 +102,12 @@ const FaceCheckin = () => {
           // Gửi check-in
           const res = await axios.post(
             "https://finlyapi-production.up.railway.app/api/face/attendance",
-            formData
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
           );
           const status = res.data.status;
           const timeStr = new Date(res.data.time).toLocaleTimeString("vi-VN");
